@@ -18,7 +18,7 @@ Depends: R (>= 3.3.1)
 Imports: devtools , RCurl , readxl , jsonlite
 Suggests: netmeta (>= 1.0-1) , V8
 Encoding: UTF-8
-RoxygenNote: 6.1.1
+RoxygenNote: 7.3.1
 NeedsCompilation: no
 Packaged: 2019-12-19 13:38:46 UTC; tosku
 Author: Theodoros Papakonstantinou [aut, cre]

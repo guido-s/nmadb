@@ -26,6 +26,7 @@
 #' \item "IRR" incidence rate ratio for rate data
 #' }
 #' If the measure entered is not compatible with network's type you get an error
+#' @param ... arguments passed on to netmeta
 #' @examples
 #' \dontrun{
 #'   Conduct random effects network meta-analysis 
@@ -76,7 +77,7 @@
 #' ,\code{\link{getNMADB}}
 #' ,\code{\link{readByID}}
 #' @export runnetmeta
-runnetmeta <- function(recid,model="random", measure="notset"){
+runnetmeta <- function(recid,model="random", measure="notset", ...){
   indata = readByID(recid)
   if(! is.null(indata)){
     type = indata$type
@@ -118,7 +119,7 @@ runnetmeta <- function(recid,model="random", measure="notset"){
                   , wide = {makelong()}
                   , iv = {indata$data}
                   )
-    C = getmetaNetw(data, type=longType(indata), model, sm, tau="NA")
+    C = getmetaNetw(data, type=longType(indata), model, sm, tau="NA", ...)
     return(C)
   }else{
     message("Unable to get dataset check internet connection")
@@ -127,7 +128,7 @@ runnetmeta <- function(recid,model="random", measure="notset"){
 }
 
 
-  getmetaNetw = function(indata,type,model="fixed",tau=NA, sm){
+  getmetaNetw = function(indata,type,model="fixed",tau=NA, sm, ...){
     
     D <- indata
     
@@ -149,7 +150,9 @@ runnetmeta <- function(recid,model="random", measure="notset"){
                                  ,sm=sm
                                  ,comb.fixed =F
                                  ,comb.random = T
-                                 , details.chkmultiarm=TRUE)
+                                 , ...
+                                 , details.chkmultiarm=TRUE
+                                 )
     } 
     if (type=="long_continuous"){
       Dpairs=netmeta::pairwise(treat=D$t
@@ -169,8 +172,10 @@ runnetmeta <- function(recid,model="random", measure="notset"){
                                  ,sm=sm
                                  ,comb.fixed =F
                                  ,comb.random = T
+                                 , ...
                                  , details.chkmultiarm=TRUE
-                                 , tol.multiarm=0.2)
+                                 , tol.multiarm=0.2
+                                 )
     }
     if (type=="long_rate"){
       Dpairs=netmeta::pairwise(treat=D$t
@@ -190,7 +195,9 @@ runnetmeta <- function(recid,model="random", measure="notset"){
                         ,sm=sm
                         ,comb.fixed =F
                         ,comb.random = T
-                        ,details.chkmultiarm=TRUE)
+                        , ...
+                        ,details.chkmultiarm=TRUE
+                        )
     }
     if (type=="iv"){
       metaNetw=netmeta::netmeta(TE=D$effect
@@ -202,8 +209,10 @@ runnetmeta <- function(recid,model="random", measure="notset"){
                                 ,sm=sm
                                 ,comb.fixed =F
                                 ,comb.random = T
+                                , ...
                                 , details.chkmultiarm=TRUE
-                                , tol.multiarm=0.5)
+                                , tol.multiarm=0.5
+                                )
     }
 
     return(metaNetw)

@@ -4,7 +4,7 @@
 \alias{runnetmeta}
 \title{Run \code{netmeta}}
 \usage{
-runnetmeta(recid, model = "random", measure = "notset")
+runnetmeta(recid, model = "random", measure = "notset", ...)
 }
 \arguments{
 \item{recid}{ID of network in database}
@@ -24,6 +24,8 @@ network meta-analysis should be conducted.}
 \item "IRR" incidence rate ratio for rate data
 }
 If the measure entered is not compatible with network's type you get an error}
+
+\item{...}{arguments passed on to netmeta}
 }
 \value{
 An object of class netmeta; for the descirption 
