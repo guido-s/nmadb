@@ -63,6 +63,7 @@ getNMADB = function () {
 #" }
 #' net = readByID(479999)
 #' net$data
+#' }
 #' @param recid Record id of network
 #' @return A list with the name (id), data (dataset), type (continuous, binary,
 #' rate, survival), effect (type of measure: RR OR RR RD ...), 
@@ -73,6 +74,7 @@ getNMADB = function () {
 #' \item 'iv' refers to an 'inverse variance' format, where a comparison specific 
 #'   estimate of the treatment effect and its standard error are reported.  
 #' }
+#' 
 #' @export readByID
 readByID = function(recid) {
   exportData = function (recid, filename) {

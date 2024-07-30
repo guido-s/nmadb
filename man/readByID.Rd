@@ -25,3 +25,10 @@ ReadByID downloads the dataset and main characteristics
 of the specified network meta-analysis.
 You can list all ids from the catalog by calling \code{getNMADB}.
 }
+\examples{
+\dontrun{
+  Download network with id 479999
+net = readByID(479999)
+net$data
+}
+}
