@@ -3,3 +3,5 @@
 export(getNMADB)
 export(readByID)
 export(runnetmeta)
+importFrom(meta,pairwise)
+importFrom(netmeta,netmeta)

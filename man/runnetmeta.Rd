@@ -25,7 +25,7 @@ network meta-analysis should be conducted.}
 }
 If the measure entered is not compatible with network's type you get an error}
 
-\item{...}{arguments passed on to netmeta}
+\item{...}{arguments passed on to \code{\link[netmeta]{netmeta}}}
 }
 \value{
 An object of class netmeta; for the descirption 

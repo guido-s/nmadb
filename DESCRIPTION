@@ -1,8 +1,9 @@
 Package: nmadb
-Type: Package
 Title: Network Meta-Analysis Database API
-Version: 1.2.0
-Date: 2019-12-19
+Version: 1.3.0
+Date: 2024-09-06
+Imports: RCurl, readxl, meta (>= 8.0-0), netmeta (>= 3.0-0)
+Suggests: V8
 Authors@R: person("Theodoros", "Papakonstantinou",
                     role = c("aut", "cre"),
                     email = "theodoros.papakonstantinou@ispm.unibe.ch",
@@ -13,16 +14,6 @@ Description: Set of functions for accessing database of network meta-analyses de
   <doi:10.1016/j.jclinepi.2016.11.002>. The database is hosted in a REDcap database at the 
   Institute of Social and Preventive Medicine (ISPM) in the University of Bern.
 License: GPL-3
-LazyLoad: Yes
-Depends: R (>= 3.3.1)
-Imports: devtools , RCurl , readxl , jsonlite
-Suggests: netmeta (>= 1.0-1) , V8
 Encoding: UTF-8
-RoxygenNote: 7.3.1
-NeedsCompilation: no
-Packaged: 2019-12-19 13:38:46 UTC; tosku
-Author: Theodoros Papakonstantinou [aut, cre]
-    (<https://orcid.org/0000-0002-6630-6817>)
-Maintainer: Theodoros Papakonstantinou <theodoros.papakonstantinou@ispm.unibe.ch>
-Repository: CRAN
-Date/Publication: 2019-12-19 14:00:02 UTC
+LazyLoad: Yes
+RoxygenNote: 7.3.2

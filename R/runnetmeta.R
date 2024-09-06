@@ -4,7 +4,8 @@
 #' for network meta-analysis based on Rücker (2012) and Rücker (2014). 
 #' This function is used to run netmeta on a specified network 
 #' included in the database of network meta-analyses,
-#' which can be downloaded using function \code{\link{getNMADB}}. 
+#' which can be downloaded using function \code{\link{getNMADB}}.
+#' 
 #' @references 
 #'   Rücker G (2012) <doi:10.1002/jrsm.1058>.
 #'
@@ -26,7 +27,8 @@
 #' \item "IRR" incidence rate ratio for rate data
 #' }
 #' If the measure entered is not compatible with network's type you get an error
-#' @param ... arguments passed on to netmeta
+#' @param ... arguments passed on to \code{\link[netmeta]{netmeta}}
+#' 
 #' @examples
 #' \dontrun{
 #'   Conduct random effects network meta-analysis 
@@ -73,10 +75,16 @@
 #' @return An object of class netmeta; for the descirption 
 #'   of the components included in the object, see the help file of
 #'   \code{\link[netmeta]{netmeta}}.
+#' 
 #' @seealso \code{\link[netmeta]{netmeta}}
 #' ,\code{\link{getNMADB}}
 #' ,\code{\link{readByID}}
+#' 
+#' @importFrom meta pairwise
+#' @importFrom netmeta netmeta
+#'  
 #' @export runnetmeta
+
 runnetmeta <- function(recid,model="random", measure="notset", ...){
   indata = readByID(recid)
   if(! is.null(indata)){
@@ -134,28 +142,28 @@ runnetmeta <- function(recid,model="random", measure="notset", ...){
     
     #network meta-analysis
     if (type=="long_binary"){
-      Dpairs=netmeta::pairwise(treat=D$t
+      Dpairs=pairwise(treat=D$t
                                ,event=D$r
                                ,n=D$n
                                , data=D
                                , studlab =D$id
                                , sm= sm
                                , allstudies = TRUE)
-      metaNetw<-netmeta::netmeta(Dpairs$TE
+      metaNetw<-netmeta(Dpairs$TE
                                  ,Dpairs$seTE
                                  ,Dpairs$treat1
                                  ,Dpairs$treat2
                                  ,Dpairs$studlab
                                  ,data=Dpairs
                                  ,sm=sm
-                                 ,comb.fixed =F
-                                 ,comb.random = T
+                                 ,common = FALSE
+                                 ,random = TRUE
                                  , ...
                                  , details.chkmultiarm=TRUE
                                  )
     } 
     if (type=="long_continuous"){
-      Dpairs=netmeta::pairwise(treat=D$t
+      Dpairs=pairwise(treat=D$t
                                ,mean=D$y
                                ,sd=D$sd
                                ,n=D$n
@@ -163,22 +171,22 @@ runnetmeta <- function(recid,model="random", measure="notset", ...){
                                , studlab=D$id
                                , sm=sm
                                , allstudies = TRUE)
-      metaNetw<-netmeta::netmeta(Dpairs$TE
+      metaNetw<-netmeta(Dpairs$TE
                                  ,Dpairs$seTE
                                  ,Dpairs$treat1
                                  ,Dpairs$treat2
                                  ,Dpairs$studlab
                                  ,data=Dpairs
                                  ,sm=sm
-                                 ,comb.fixed =F
-                                 ,comb.random = T
+                                 ,common = FALSE
+                                 ,random = TRUE
                                  , ...
                                  , details.chkmultiarm=TRUE
                                  , tol.multiarm=0.2
                                  )
     }
     if (type=="long_rate"){
-      Dpairs=netmeta::pairwise(treat=D$t
+      Dpairs=pairwise(treat=D$t
                       ,event=D$r
                       ,n=D$n
                       ,time=D$time
@@ -186,29 +194,29 @@ runnetmeta <- function(recid,model="random", measure="notset", ...){
                       , studlab=D$id
                       , sm=sm
                       , allstudies = TRUE)
-      metaNetw<-netmeta::netmeta(Dpairs$TE
+      metaNetw<-netmeta(Dpairs$TE
                         ,Dpairs$seTE
                         ,Dpairs$treat1
                         ,Dpairs$treat2
                         ,Dpairs$studlab
                         ,data=Dpairs
                         ,sm=sm
-                        ,comb.fixed =F
-                        ,comb.random = T
+                        ,common = FALSE
+                        ,random = TRUE
                         , ...
                         ,details.chkmultiarm=TRUE
                         )
     }
     if (type=="iv"){
-      metaNetw=netmeta::netmeta(TE=D$effect
+      metaNetw=netmeta(TE=D$effect
                                 ,seTE=D$se
                                 ,treat1=D$t1
                                 ,treat2=D$t2
                                 ,studlab=D$id
                                 ,data=D
                                 ,sm=sm
-                                ,comb.fixed =F
-                                ,comb.random = T
+                                ,common = FALSE
+                                ,random = TRUE
                                 , ...
                                 , details.chkmultiarm=TRUE
                                 , tol.multiarm=0.5
