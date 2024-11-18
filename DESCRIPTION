@@ -1,8 +1,8 @@
 Package: nmadb
 Title: Network Meta-Analysis Database API
 Version: 1.3.0
-Date: 2024-09-06
-Imports: RCurl, readxl, meta (>= 8.0-0), netmeta (>= 3.0-0)
+Date: 2024-11-18
+Imports: RCurl, readxl, meta (>= 8.0-1), netmeta (>= 2.9-0)
 Suggests: V8
 Authors@R: person("Theodoros", "Papakonstantinou",
                     role = c("aut", "cre"),
